@@ -174,6 +174,7 @@ body {
 
 .level-card {
     background: linear-gradient(135deg, #FFD700, #FFA500);
+    background-color: #FFD700; /* Fallback */
     border: 3px solid white;
     border-radius: 15px;
     padding: 20px 15px;
@@ -186,6 +187,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .level-card:active {
@@ -207,6 +209,7 @@ body {
 
 .custom-card {
     background: linear-gradient(135deg, #9933FF, #CC66FF);
+    background-color: #9933FF; /* Fallback */
 }
 
 .custom-controls {
@@ -214,6 +217,7 @@ body {
     flex-direction: column;
     gap: 6px;
     width: 100%;
+    touch-action: manipulation;
 }
 
 .custom-select {
@@ -226,6 +230,10 @@ body {
     color: #663399;
     font-weight: bold;
     cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    touch-action: manipulation;
 }
 
 .custom-select-btn {
@@ -239,6 +247,8 @@ body {
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .custom-select-btn:active {
@@ -249,6 +259,11 @@ body {
 .btn-play:not(:disabled):active {
     transform: translateY(4px);
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+#play-btn {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 #play-btn:disabled {
@@ -263,7 +278,12 @@ body {
     
     .level-card {
         padding: 15px 10px;
-        min-height: 120px;
+        min-height: 130px;
+        border-width: 3px;
+    }
+    
+    .level-card.selected {
+        border-width: 4px;
     }
     
     .level-emoji {
@@ -280,12 +300,12 @@ body {
     
     .custom-select {
         font-size: 0.7rem;
-        padding: 4px 3px;
+        padding: 6px 4px;
     }
     
     .custom-select-btn {
         font-size: 0.7rem;
-        padding: 5px;
+        padding: 7px;
     }
 }
 

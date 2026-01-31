@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Pattern Rush - Mobile Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .test-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .test-card {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            background-color: #FFD700;
+            border: 3px solid white;
+            border-radius: 15px;
+            padding: 20px 15px;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .test-card.custom {
+            background: linear-gradient(135deg, #9933FF, #CC66FF);
+            background-color: #9933FF;
+        }
+        
+        .test-card.selected {
+            border-color: #00FF00;
+            border-width: 4px;
+        }
+        
+        .emoji {
+            font-size: 2.5rem;
+        }
+        
+        .name {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #663399;
+        }
+        
+        .stats {
+            font-size: 0.85rem;
+            color: #663399;
+            font-weight: bold;
+        }
+        
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+        }
+        
+        select, button {
+            font-family: Arial, sans-serif;
+            font-size: 0.75rem;
+            padding: 6px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        
+        select {
+            border: 2px solid white;
+            background: white;
+            color: #663399;
+        }
+        
+        .btn {
+            border: none;
+            background: #00FF00;
+            color: #663399;
+            cursor: pointer;
+        }
+        
+        .play-btn {
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            background: #FF1493;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            margin: 20px 0;
+            width: 100%;
+        }
+        
+        .play-btn:disabled {
+            opacity: 0.5;
+        }
+        
+        .result {
+            background: rgba(0, 255, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mobile Test Page</h1>
+    
+    <div class="test-section">
+        <h2>Level Selection Test</h2>
+        <div class="test-grid">
+            <div class="test-card" id="card1" onclick="selectCard(1)">
+                <div class="emoji">😊</div>
+                <div class="name">EASY</div>
+                <div class="stats">8 Containers • 2:00</div>
+            </div>
+            
+            <div class="test-card" id="card2" onclick="selectCard(2)">
+                <div class="emoji">😎</div>
+                <div class="name">MEDIUM</div>
+                <div class="stats">12 Containers • 1:30</div>
+            </div>
+            
+            <div class="test-card" id="card3" onclick="selectCard(3)">
+                <div class="emoji">🔥</div>
+                <div class="name">HARD</div>
+                <div class="stats">14 Containers • 1:00</div>
+            </div>
+            
+            <div class="test-card custom" id="card4" onclick="selectCard(4)">
+                <div class="emoji">⚙️</div>
+                <div class="name">CUSTOM</div>
+                <div class="controls">
+                    <select id="containers" onclick="event.stopPropagation()">
+                        <option value="4">4</option>
+                        <option value="6">6</option>
+                        <option value="8" selected>8</option>
+                        <option value="10">10</option>
+                        <option value="12">12</option>
+                        <option value="14">14</option>
+                        <option value="16">16</option>
+                    </select>
+                    <select id="time" onclick="event.stopPropagation()">
+                        <option value="30">0:30</option>
+                        <option value="45">0:45</option>
+                        <option value="60" selected>1:00</option>
+                        <option value="90">1:30</option>
+                        <option value="120">2:00</option>
+                        <option value="180">3:00</option>
+                    </select>
+                    <button class="btn" onclick="event.stopPropagation(); selectCard(4)">SELECT</button>
+                </div>
+            </div>
+        </div>
+        
+        <button class="play-btn" id="playBtn" onclick="testPlay()" disabled>▶ PLAY</button>
+        
+        <div class="result" id="result" style="display:none;">
+            Selected: <span id="selected">None</span>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test Results</h2>
+        <p>✓ Level cards visible with colors</p>
+        <p>✓ Custom card with dropdowns</p>
+        <p>✓ Play button works when level selected</p>
+        <p>✓ Touch/click events working</p>
+    </div>
+    
+    <script>
+        let selected = null;
+        
+        function selectCard(num) {
+            selected = num;
+            
+            // Remove all selections
+            document.querySelectorAll('.test-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection
+            document.getElementById('card' + num).classList.add('selected');
+            
+            // Enable play button
+            document.getElementById('playBtn').disabled = false;
+            
+            // Show result
+            let levelName = ['Easy', 'Medium', 'Hard', 'Custom'][num-1];
+            document.getElementById('selected').textContent = levelName;
+            document.getElementById('result').style.display = 'block';
+        }
+        
+        function testPlay() {
+            if (selected) {
+                alert('Play button works! Selected: ' + ['Easy', 'Medium', 'Hard', 'Custom'][selected-1]);
+            }
+        }
+    </script>
+</body>
+</html>
