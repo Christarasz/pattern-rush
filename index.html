@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pattern Rush</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="container">
+                <h1 class="game-title">⚡ Pattern Rush</h1>
+                
+                <div class="instructions">
+                    <p>🎯 Match all pattern pairs!</p>
+                    <p>💡 Grey dots need colors</p>
+                    <p>🎮 Drag containers to match</p>
+                    <p>⏱️ Beat the clock!</p>
+                    <p>⚠️ One mistake = Game Over!</p>
+                </div>
+                
+                <button class="btn-large btn-primary" onclick="game.showLevelSelect()">
+                    START GAME
+                </button>
+            </div>
+        </div>
+
+        <!-- Level Selection Screen -->
+        <div id="level-screen" class="screen">
+            <div class="container">
+                <h2 class="screen-title">Choose Level</h2>
+                
+                <div class="level-buttons">
+                    <button class="level-btn" onclick="game.startGame('easy')">
+                        <div class="level-emoji">😊</div>
+                        <div class="level-name">EASY</div>
+                        <div class="level-detail">3 Pairs - 2:00</div>
+                    </button>
+                    
+                    <button class="level-btn" onclick="game.startGame('medium')">
+                        <div class="level-emoji">😎</div>
+                        <div class="level-name">MEDIUM</div>
+                        <div class="level-detail">5 Pairs - 1:30</div>
+                    </button>
+                    
+                    <button class="level-btn" onclick="game.startGame('hard')">
+                        <div class="level-emoji">🔥</div>
+                        <div class="level-name">HARD</div>
+                        <div class="level-detail">7 Pairs - 1:00</div>
+                    </button>
+                </div>
+                
+                <button class="btn-medium btn-secondary" onclick="game.showWelcome()">
+                    ← BACK
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="header-left">
+                    <span class="level-badge" id="current-level">Easy</span>
+                    <div class="pairs-counter">
+                        <span class="pairs-label">Pairs:</span>
+                        <span class="pairs-number" id="pairs-count">4</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="timer" id="timer">
+                        <span class="timer-icon">⏱️</span>
+                        <span class="timer-value" id="timer-value">60</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Free-flowing containers -->
+            <div class="game-board" id="game-board">
+                <!-- Tiles will be generated here -->
+            </div>
+            
+            <div class="game-footer">
+                <button class="btn-small btn-secondary" onclick="game.showLevelSelect()">
+                    📋 MENU
+                </button>
+                <button class="btn-small btn-secondary" onclick="game.restartLevel()">
+                    🔄 RESTART
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Over Modal -->
+        <div id="game-over-modal" class="modal">
+            <div class="modal-content modal-fail">
+                <div class="modal-emoji">😢</div>
+                <h2 class="modal-title">Wrong Match!</h2>
+                <p class="modal-text">Try again!</p>
+                <div class="modal-buttons">
+                    <button class="btn-medium btn-primary" onclick="game.restartLevel()">
+                        TRY AGAIN
+                    </button>
+                    <button class="btn-medium btn-secondary" onclick="game.showLevelSelect()">
+                        CHANGE LEVEL
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Time's Up Modal -->
+        <div id="timeout-modal" class="modal">
+            <div class="modal-content modal-fail">
+                <div class="modal-emoji">⏰</div>
+                <h2 class="modal-title">Time's Up!</h2>
+                <p class="modal-text">Try to be faster!</p>
+                <div class="modal-buttons">
+                    <button class="btn-medium btn-primary" onclick="game.restartLevel()">
+                        TRY AGAIN
+                    </button>
+                    <button class="btn-medium btn-secondary" onclick="game.showLevelSelect()">
+                        CHANGE LEVEL
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Victory Modal -->
+        <div id="victory-modal" class="modal">
+            <div class="modal-content modal-success">
+                <div class="modal-emoji">🎉</div>
+                <h2 class="modal-title">You Win!</h2>
+                <p class="modal-text" id="victory-time">Completed in 0:45!</p>
+                <div class="modal-buttons">
+                    <button class="btn-medium btn-primary" onclick="game.restartLevel()">
+                        PLAY AGAIN
+                    </button>
+                    <button class="btn-medium btn-secondary" onclick="game.showLevelSelect()">
+                        CHANGE LEVEL
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/tile-generator.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
