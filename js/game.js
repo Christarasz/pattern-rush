@@ -27,6 +27,7 @@ const game = {
     // Show level selection
     showLevelSelect: function() {
         this.stopTimer();
+        AudioManager.stopBackgroundMusic();
         this.hideAllScreens();
         document.getElementById('level-screen').classList.add('active');
         utils.hideAllModals();
@@ -58,6 +59,9 @@ const game = {
         this.renderTiles();
         
         utils.hideAllModals();
+        
+        // Start background music
+        AudioManager.playBackgroundMusic();
         
         // Start timer
         this.startTimer();
@@ -124,7 +128,7 @@ const game = {
     // Handle timeout
     handleTimeout: function() {
         this.stopTimer();
-        utils.playErrorSound();
+        AudioManager.playErrorSound();
         utils.showModal('timeout-modal');
     },
 
@@ -328,7 +332,7 @@ const game = {
     // Handle correct match
     handleCorrectMatch: function(tile1, tile2) {
         const self = this;
-        utils.playSuccessSound();
+        AudioManager.playSuccessSound();
 
         // Mark as matched
         tile1.matched = true;
@@ -376,7 +380,7 @@ const game = {
     // Handle wrong match
     handleWrongMatch: function(tile1, tile2) {
         this.stopTimer();
-        utils.playErrorSound();
+        AudioManager.playErrorSound();
 
         const el1 = document.getElementById(tile1.id);
         const el2 = document.getElementById(tile2.id);
@@ -395,7 +399,8 @@ const game = {
     // Handle victory
     handleVictory: function() {
         this.stopTimer();
-        utils.playSuccessSound();
+        AudioManager.stopBackgroundMusic();
+        AudioManager.playVictorySound();
         
         // Calculate time taken
         const timeTaken = this.timeLimit - this.timeRemaining;
@@ -403,6 +408,24 @@ const game = {
             'Completed in ' + utils.formatTime(timeTaken) + '!';
         
         utils.showModal('victory-modal');
+    },
+
+    // Toggle mute
+    toggleMute: function() {
+        const isMuted = AudioManager.toggleMute();
+        const muteBtn = document.getElementById('mute-btn');
+        if (muteBtn) {
+            muteBtn.textContent = isMuted ? '🔇' : '🔊';
+            if (isMuted) {
+                muteBtn.classList.add('muted');
+            } else {
+                muteBtn.classList.remove('muted');
+                // Restart music if in game
+                if (document.getElementById('game-screen').classList.contains('active')) {
+                    AudioManager.playBackgroundMusic();
+                }
+            }
+        }
     }
 };
 

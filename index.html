@@ -69,6 +69,9 @@
                     </div>
                 </div>
                 <div class="header-right">
+                    <button class="mute-btn" id="mute-btn" onclick="game.toggleMute()" title="Toggle Sound">
+                        🔊
+                    </button>
                     <div class="timer" id="timer">
                         <span class="timer-icon">⏱️</span>
                         <span class="timer-value" id="timer-value">60</span>
@@ -144,6 +147,7 @@
     </div>
 
     <script src="js/utils.js"></script>
+    <script src="js/audio.js"></script>
     <script src="js/tile-generator.js"></script>
     <script src="js/game.js"></script>
 </body>
