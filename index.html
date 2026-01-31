@@ -38,42 +38,50 @@
                     <button class="level-card" id="card-easy" onclick="game.selectLevel('easy')">
                         <div class="level-emoji">😊</div>
                         <div class="level-name">EASY</div>
-                        <div class="level-stats">8 Containers • 2:00</div>
+                        <div class="level-stats">8 Containers • 2 mins</div>
                     </button>
                     
                     <button class="level-card" id="card-medium" onclick="game.selectLevel('medium')">
                         <div class="level-emoji">😎</div>
                         <div class="level-name">MEDIUM</div>
-                        <div class="level-stats">12 Containers • 1:30</div>
+                        <div class="level-stats">12 Containers • 1.5 mins</div>
                     </button>
                     
                     <button class="level-card" id="card-hard" onclick="game.selectLevel('hard')">
                         <div class="level-emoji">🔥</div>
                         <div class="level-name">HARD</div>
-                        <div class="level-stats">14 Containers • 1:00</div>
+                        <div class="level-stats">14 Containers • 1 min</div>
                     </button>
                     
                     <div class="level-card custom-card" id="card-custom">
-                        <div class="level-emoji">⚙️</div>
-                        <div class="level-name">CUSTOM</div>
+                        <div class="custom-header">
+                            <div class="level-name">CUSTOM</div>
+                            <div class="level-emoji-small">⚙️</div>
+                        </div>
                         <div class="custom-controls">
-                            <select id="custom-containers" class="custom-select" onchange="game.updateCustomSelection()">
-                                <option value="4">4</option>
-                                <option value="6">6</option>
-                                <option value="8" selected>8</option>
-                                <option value="10">10</option>
-                                <option value="12">12</option>
-                                <option value="14">14</option>
-                                <option value="16">16</option>
-                            </select>
-                            <select id="custom-time" class="custom-select" onchange="game.updateCustomSelection()">
-                                <option value="30">0:30</option>
-                                <option value="45">0:45</option>
-                                <option value="60" selected>1:00</option>
-                                <option value="90">1:30</option>
-                                <option value="120">2:00</option>
-                                <option value="180">3:00</option>
-                            </select>
+                            <div class="custom-row">
+                                <label class="custom-label">Containers</label>
+                                <select id="custom-containers" class="custom-select-compact" onchange="game.updateCustomSelection()">
+                                    <option value="4">4</option>
+                                    <option value="6">6</option>
+                                    <option value="8" selected>8</option>
+                                    <option value="10">10</option>
+                                    <option value="12">12</option>
+                                    <option value="14">14</option>
+                                    <option value="16">16</option>
+                                </select>
+                            </div>
+                            <div class="custom-row">
+                                <label class="custom-label">Time</label>
+                                <select id="custom-time" class="custom-select-compact" onchange="game.updateCustomSelection()">
+                                    <option value="30">0.5 min</option>
+                                    <option value="45">0.75 min</option>
+                                    <option value="60" selected>1 min</option>
+                                    <option value="90">1.5 mins</option>
+                                    <option value="120">2 mins</option>
+                                    <option value="180">3 mins</option>
+                                </select>
+                            </div>
                             <button class="custom-select-btn" onclick="game.selectLevel('custom')">SELECT</button>
                         </div>
                     </div>

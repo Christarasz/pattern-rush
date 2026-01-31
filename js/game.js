@@ -518,7 +518,26 @@ const game = {
     }
 };
 
+// Fix mobile viewport height for visible footer buttons
+function setMobileViewportHeight() {
+    // Get the actual viewport height
+    const vh = window.innerHeight * 0.01;
+    // Set CSS variable
+    document.documentElement.style.setProperty('--vh', vh + 'px');
+}
+
+// Set on load
+setMobileViewportHeight();
+
+// Update on resize and orientation change
+window.addEventListener('resize', setMobileViewportHeight);
+window.addEventListener('orientationchange', function() {
+    setTimeout(setMobileViewportHeight, 100);
+});
+
 // Start game when loaded
 document.addEventListener('DOMContentLoaded', function() {
     game.init();
+    // Set viewport height again after DOM loaded
+    setTimeout(setMobileViewportHeight, 100);
 });
