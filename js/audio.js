@@ -8,8 +8,12 @@ const AudioManager = {
 
     // Initialize audio context
     init: function() {
-        if (!this.audioContext) {
-            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        if (!this.audioContext || this.audioContext.state === 'closed') {
+            try {
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            } catch(e) {
+                console.log('Web Audio API not supported');
+            }
         }
     },
 
@@ -161,8 +165,10 @@ const AudioManager = {
 
     // Play success sound (correct match)
     playSuccessSound: function() {
+        // Vibrate once - at the start
+        utils.vibrate([100, 50, 100]);
+        
         if (this.isMuted) {
-            utils.vibrate([100, 50, 100]);
             return;
         }
         
@@ -194,14 +200,14 @@ const AudioManager = {
             osc.start(ctx.currentTime + note.time);
             osc.stop(ctx.currentTime + note.time + note.duration);
         });
-        
-        utils.vibrate([100, 50, 100]);
     },
 
     // Play error sound (wrong match / game over)
     playErrorSound: function() {
+        // Vibrate once - no loops
+        utils.vibrate([200, 100, 200]);
+        
         if (this.isMuted) {
-            utils.vibrate([200, 100, 200, 100, 200]);
             return;
         }
         
@@ -233,8 +239,6 @@ const AudioManager = {
             osc.start(ctx.currentTime + note.time);
             osc.stop(ctx.currentTime + note.time + note.duration);
         });
-        
-        utils.vibrate([200, 100, 200, 100, 200]);
     },
 
     // Play victory sound

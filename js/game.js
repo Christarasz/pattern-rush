@@ -189,43 +189,79 @@ const game = {
         });
     },
 
-    // Start timer
+    // Start timer - FIXED to prevent multiple intervals
     startTimer: function() {
         const self = this;
-        this.startTime = Date.now();
+        
+        // CRITICAL: Clear any existing timer first
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+            this.timerInterval = null;
+        }
+        
+        // Remove any existing warning
+        const timerEl = document.getElementById('timer');
+        if (timerEl) {
+            timerEl.classList.remove('warning');
+        }
+        
+        // Update display immediately
+        document.getElementById('timer-value').textContent = utils.formatTime(this.timeRemaining);
         
         this.timerInterval = setInterval(function() {
             self.timeRemaining--;
-            document.getElementById('timer-value').textContent = utils.formatTime(self.timeRemaining);
+            
+            // Update display
+            const timerValue = document.getElementById('timer-value');
+            if (timerValue) {
+                timerValue.textContent = utils.formatTime(self.timeRemaining);
+            }
             
             // Warning when time is low
-            const timerEl = document.getElementById('timer');
-            if (self.timeRemaining <= 10) {
-                timerEl.classList.add('warning');
-            } else {
-                timerEl.classList.remove('warning');
+            const timer = document.getElementById('timer');
+            if (timer) {
+                if (self.timeRemaining <= 10) {
+                    timer.classList.add('warning');
+                } else {
+                    timer.classList.remove('warning');
+                }
             }
             
             // Time's up
             if (self.timeRemaining <= 0) {
+                clearInterval(self.timerInterval);
+                self.timerInterval = null;
                 self.handleTimeout();
             }
         }, 1000);
     },
 
-    // Stop timer
+    // Stop timer - ENHANCED to ensure complete cleanup
     stopTimer: function() {
         if (this.timerInterval) {
             clearInterval(this.timerInterval);
             this.timerInterval = null;
         }
+        
+        // Remove warning class
+        const timerEl = document.getElementById('timer');
+        if (timerEl) {
+            timerEl.classList.remove('warning');
+        }
     },
 
-    // Handle timeout
+    // Handle timeout - PRODUCTION READY
     handleTimeout: function() {
+        // CRITICAL: Stop timer FIRST to prevent multiple calls
         this.stopTimer();
+        
+        // Stop music immediately
         AudioManager.stopBackgroundMusic();
+        
+        // Play error sound/vibrate ONCE
         AudioManager.playErrorSound();
+        
+        // Show modal
         utils.showModal('timeout-modal');
     },
 
