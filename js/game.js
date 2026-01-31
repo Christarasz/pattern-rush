@@ -83,6 +83,10 @@ const game = {
 
     // Start custom game
     startCustomGame: function() {
+        // Stop any existing timer first
+        this.stopTimer();
+        AudioManager.stopBackgroundMusic();
+        
         const containerCount = this.customContainers;
         const timeLimit = this.customTime;
         const pairCount = containerCount / 2;
@@ -117,6 +121,10 @@ const game = {
 
     // Start game
     startGame: function(level) {
+        // Stop any existing timer first
+        this.stopTimer();
+        AudioManager.stopBackgroundMusic();
+        
         this.currentLevel = level;
         this.matchedPairs = 0;
         
@@ -151,7 +159,13 @@ const game = {
 
     // Restart level
     restartLevel: function() {
-        if (this.currentLevel) {
+        utils.hideAllModals();
+        
+        if (this.currentLevel === 'custom') {
+            // Restart custom game with same settings
+            this.startCustomGame();
+        } else if (this.currentLevel) {
+            // Restart standard level
             this.startGame(this.currentLevel);
         }
     },
