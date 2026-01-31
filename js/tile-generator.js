@@ -30,7 +30,7 @@ const TileGenerator = {
                 totalPairs: 6,      // 8 containers total
                 patternRows: 4,     // ALL levels use 4x4 pattern
                 patternCols: 4,
-                timeLimit: 100     // 2 minutes
+                timeLimit: 90     // 2 minutes
             },
             medium: {
                 totalPairs: 6,      // 12 containers total

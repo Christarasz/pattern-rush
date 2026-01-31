@@ -257,14 +257,21 @@ body {
     justify-content: center;
     align-items: flex-start;
     align-content: flex-start;
-    gap: 10px;
+    gap: 12px;
     width: 100%;
     max-width: 650px;
     margin-bottom: 8px;
-    padding: 8px;
+    padding: 10px;
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+@media (min-width: 480px) {
+    .game-board {
+        gap: 15px;
+        padding: 12px;
+    }
 }
 
 /* Tile Container - Same size for all levels (4x4 pattern) */
@@ -277,8 +284,8 @@ body {
     transition: all 0.2s;
     box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
     display: flex;
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     order: 0;
 }
 
@@ -289,11 +296,19 @@ body {
     cursor: default;
 }
 
+@media (min-width: 400px) {
+    .tile-container {
+        width: 130px;
+        height: 130px;
+        padding: 10px;
+    }
+}
+
 @media (min-width: 480px) {
     .tile-container {
-        width: 120px;
-        height: 120px;
-        padding: 10px;
+        width: 140px;
+        height: 140px;
+        padding: 12px;
     }
 }
 
@@ -347,14 +362,20 @@ body {
 /* Tile Grid - pattern inside container */
 .tile-grid {
     display: grid;
-    gap: 3px;
+    gap: 4px;
     width: 100%;
     height: 100%;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 400px) {
     .tile-grid {
         gap: 5px;
+    }
+}
+
+@media (min-width: 480px) {
+    .tile-grid {
+        gap: 6px;
     }
 }
 
@@ -547,13 +568,30 @@ body {
     }
     
     .game-board {
-        gap: 8px;
-        padding: 6px;
+        gap: 10px;
+        padding: 8px;
     }
     
     .tile-container {
-        width: 85px;
-        height: 85px;
+        width: 100px;
+        height: 100px;
+        padding: 7px;
+    }
+    
+    .tile-grid {
+        gap: 3px;
+    }
+    
+    .btn-small {
+        font-size: 0.85rem;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 380px) {
+    .tile-container {
+        width: 90px;
+        height: 90px;
         padding: 6px;
     }
     
@@ -561,9 +599,9 @@ body {
         gap: 2px;
     }
     
-    .btn-small {
-        font-size: 0.85rem;
-        padding: 8px 16px;
+    .game-board {
+        gap: 8px;
+        padding: 6px;
     }
 }
 
