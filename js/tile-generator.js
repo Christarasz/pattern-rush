@@ -23,6 +23,29 @@ const TileGenerator = {
         return utils.shuffle(allContainers);
     },
 
+    // Generate custom tiles
+    generateCustomTiles: function(pairCount) {
+        const allContainers = [];
+        const usedMatchIds = new Set();
+        
+        // Use standard 4x4 pattern for custom mode
+        const rows = 4;
+        const cols = 4;
+
+        // Generate pairs
+        for (let i = 0; i < pairCount; i++) {
+            const matchId = this.generateUniqueId(usedMatchIds);
+            usedMatchIds.add(matchId);
+            
+            const pair = this.generatePair(rows, cols, matchId);
+            allContainers.push(pair[0]);
+            allContainers.push(pair[1]);
+        }
+
+        // Shuffle all containers
+        return utils.shuffle(allContainers);
+    },
+
     // Get level configuration
     getLevelConfig: function(level) {
         const configs = {

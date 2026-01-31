@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <title>Pattern Rush</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
@@ -30,27 +32,60 @@
         <!-- Level Selection Screen -->
         <div id="level-screen" class="screen">
             <div class="container">
-                <h2 class="screen-title">Choose Level</h2>
+                <h2 class="screen-title">Choose Your Game</h2>
                 
-                <div class="level-buttons">
-                    <button class="level-btn" onclick="game.startGame('easy')">
+                <div class="level-selection-grid">
+                    <button class="level-card" id="card-easy" onclick="game.selectLevel('easy')">
                         <div class="level-emoji">😊</div>
                         <div class="level-name">EASY</div>
-                        <div class="level-detail">4 Pairs - 2:00</div>
+                        <div class="level-stats">8 Containers • 2:00</div>
                     </button>
                     
-                    <button class="level-btn" onclick="game.startGame('medium')">
+                    <button class="level-card" id="card-medium" onclick="game.selectLevel('medium')">
                         <div class="level-emoji">😎</div>
                         <div class="level-name">MEDIUM</div>
-                        <div class="level-detail">6 Pairs - 1:30</div>
+                        <div class="level-stats">12 Containers • 1:30</div>
                     </button>
                     
-                    <button class="level-btn" onclick="game.startGame('hard')">
+                    <button class="level-card" id="card-hard" onclick="game.selectLevel('hard')">
                         <div class="level-emoji">🔥</div>
                         <div class="level-name">HARD</div>
-                        <div class="level-detail">7 Pairs - 1:00</div>
+                        <div class="level-stats">14 Containers • 1:00</div>
                     </button>
+                    
+                    <div class="level-card custom-card" id="card-custom">
+                        <div class="level-emoji">⚙️</div>
+                        <div class="level-name">CUSTOM</div>
+                        <div class="custom-controls">
+                            <select id="custom-containers" class="custom-select" onchange="game.updateCustomSelection()">
+                                <option value="4">4 containers</option>
+                                <option value="6">6 containers</option>
+                                <option value="8" selected>8 containers</option>
+                                <option value="10">10 containers</option>
+                                <option value="12">12 containers</option>
+                                <option value="14">14 containers</option>
+                                <option value="16">16 containers</option>
+                                <option value="18">18 containers</option>
+                                <option value="20">20 containers</option>
+                            </select>
+                            <select id="custom-time" class="custom-select" onchange="game.updateCustomSelection()">
+                                <option value="30">0:30</option>
+                                <option value="45">0:45</option>
+                                <option value="60" selected>1:00</option>
+                                <option value="90">1:30</option>
+                                <option value="120">2:00</option>
+                                <option value="180">3:00</option>
+                                <option value="240">4:00</option>
+                                <option value="300">5:00</option>
+                            </select>
+                            <button class="custom-select-btn" onclick="game.selectLevel('custom')">SELECT</button>
+                        </div>
+                    </div>
                 </div>
+                
+                <button class="btn-play btn-primary" id="play-btn" onclick="game.startSelectedGame()" disabled>
+                    ▶ PLAY
+                </button>
                 
                 <button class="btn-medium btn-secondary" onclick="game.showWelcome()">
                     ← BACK

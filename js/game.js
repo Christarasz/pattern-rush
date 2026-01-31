@@ -10,6 +10,9 @@ const game = {
     timeRemaining: 0,
     timerInterval: null,
     startTime: 0,
+    selectedLevel: null,
+    customContainers: 8,
+    customTime: 60,
 
     // Initialize game
     init: function() {
@@ -31,6 +34,85 @@ const game = {
         this.hideAllScreens();
         document.getElementById('level-screen').classList.add('active');
         utils.hideAllModals();
+        // Reset selection
+        this.selectedLevel = null;
+        document.getElementById('play-btn').disabled = true;
+        document.querySelectorAll('.level-card').forEach(function(card) {
+            card.classList.remove('selected');
+        });
+    },
+
+    // Select a level (new function)
+    selectLevel: function(level) {
+        this.selectedLevel = level;
+        
+        // Update UI - remove all selections
+        document.querySelectorAll('.level-card').forEach(function(card) {
+            card.classList.remove('selected');
+        });
+        
+        // Highlight selected card
+        if (level === 'custom') {
+            document.getElementById('card-custom').classList.add('selected');
+            this.customContainers = parseInt(document.getElementById('custom-containers').value);
+            this.customTime = parseInt(document.getElementById('custom-time').value);
+        } else {
+            document.getElementById('card-' + level).classList.add('selected');
+        }
+        
+        // Enable play button
+        document.getElementById('play-btn').disabled = false;
+    },
+
+    // Update custom selection
+    updateCustomSelection: function() {
+        this.customContainers = parseInt(document.getElementById('custom-containers').value);
+        this.customTime = parseInt(document.getElementById('custom-time').value);
+    },
+
+    // Start the selected game
+    startSelectedGame: function() {
+        if (!this.selectedLevel) return;
+        
+        if (this.selectedLevel === 'custom') {
+            this.startCustomGame();
+        } else {
+            this.startGame(this.selectedLevel);
+        }
+    },
+
+    // Start custom game
+    startCustomGame: function() {
+        const containerCount = this.customContainers;
+        const timeLimit = this.customTime;
+        const pairCount = containerCount / 2;
+        
+        this.currentLevel = 'custom';
+        this.matchedPairs = 0;
+        this.totalPairs = pairCount;
+        this.timeLimit = timeLimit;
+        this.timeRemaining = timeLimit;
+        
+        // Generate custom tiles
+        this.tiles = TileGenerator.generateCustomTiles(pairCount);
+        
+        // Setup UI
+        this.hideAllScreens();
+        document.getElementById('game-screen').classList.add('active');
+        document.getElementById('current-level').textContent = 'Custom';
+        document.getElementById('pairs-count').textContent = this.totalPairs;
+        document.getElementById('timer-value').textContent = utils.formatTime(this.timeRemaining);
+        
+        // Render tiles
+        this.renderTiles();
+        
+        utils.hideAllModals();
+        
+        // Start background music
+        AudioManager.playBackgroundMusic();
+        
+        // Start timer
+        this.startTimer();
     },
 
     // Start game
