@@ -146,6 +146,17 @@ const AudioManager = {
     // Stop background music
     stopBackgroundMusic: function() {
         this.isMusicPlaying = false;
+        
+        // Immediately stop all oscillators by closing audio context
+        if (this.audioContext) {
+            try {
+                // Close the context to stop all sounds immediately
+                this.audioContext.close();
+                this.audioContext = null;
+            } catch(e) {
+                // Ignore errors
+            }
+        }
     },
 
     // Play success sound (correct match)

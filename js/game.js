@@ -322,6 +322,11 @@ const game = {
 
     // Handle drop
     handleDrop: function(droppedTile, targetTile) {
+        // CRITICAL: Don't allow matching with itself
+        if (droppedTile.id === targetTile.id) {
+            return; // Just ignore, don't trigger game over
+        }
+        
         // Check if they have the same matchId (unique pair)
         if (droppedTile.matchId === targetTile.matchId) {
             this.handleCorrectMatch(droppedTile, targetTile);
