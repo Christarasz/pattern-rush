@@ -317,19 +317,21 @@ body {
     gap: 8px;
     width: 100%;
     max-width: 650px;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
     padding: 5px;
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
     min-height: 0;
+    padding-bottom: 10px;
 }
 
 @media (max-width: 480px) {
     .game-board {
         gap: 6px;
         padding: 3px;
-        margin-bottom: 2px;
+        margin-bottom: 3px;
+        padding-bottom: 8px;
     }
 }
 
@@ -338,6 +340,7 @@ body {
         gap: 5px;
         padding: 3px;
         margin-bottom: 2px;
+        padding-bottom: 5px;
     }
 }
 
@@ -568,20 +571,21 @@ body {
     max-width: 650px;
     justify-content: center;
     flex-shrink: 0;
-    padding: 3px 0 5px 0;
+    padding: 5px 0 8px 0;
+    background: linear-gradient(to top, rgba(102, 126, 234, 0.9) 0%, transparent 100%);
 }
 
 @media (max-width: 480px) {
     .game-footer {
-        gap: 6px;
-        padding: 2px 0 3px 0;
+        gap: 8px;
+        padding: 5px 0 10px 0;
     }
 }
 
 @media (max-height: 700px) {
     .game-footer {
-        gap: 5px;
-        padding: 2px 0 3px 0;
+        gap: 6px;
+        padding: 4px 0 8px 0;
     }
 }
 
@@ -721,6 +725,8 @@ body {
     .btn-small {
         font-size: 0.75rem;
         padding: 5px 10px;
+        box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
+        min-width: 70px;
     }
 }
 
@@ -741,7 +747,8 @@ body {
     
     .btn-small {
         font-size: 0.7rem;
-        padding: 4px 8px;
+        padding: 5px 8px;
+        min-width: 65px;
     }
     
     .tile-container.completed::after {
