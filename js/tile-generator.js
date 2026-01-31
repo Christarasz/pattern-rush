@@ -27,13 +27,13 @@ const TileGenerator = {
     getLevelConfig: function(level) {
         const configs = {
             easy: {
-                totalPairs: 3,      // 6 containers total
+                totalPairs: 4,      // 8 containers total
                 patternRows: 4,     // ALL levels use 4x4 pattern
                 patternCols: 4,
                 timeLimit: 120      // 2 minutes
             },
             medium: {
-                totalPairs: 5,      // 10 containers total
+                totalPairs: 6,      // 12 containers total
                 patternRows: 4,     // ALL levels use 4x4 pattern
                 patternCols: 4,
                 timeLimit: 90       // 1.5 minutes

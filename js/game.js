@@ -209,9 +209,34 @@ const game = {
             clone.style.left = (touch.clientX - element.offsetWidth / 2) + 'px';
             clone.style.top = (touch.clientY - element.offsetHeight / 2) + 'px';
 
-            // Find element under touch
+            // Find element under touch with larger detection radius
             clone.style.display = 'none';
             const elBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+            
+            // Also check nearby points for better detection (40px radius)
+            let targetEl = elBelow;
+            if (!elBelow || !elBelow.classList.contains('tile-container')) {
+                // Check 8 points around the touch point
+                const checkPoints = [
+                    {x: touch.clientX - 40, y: touch.clientY},
+                    {x: touch.clientX + 40, y: touch.clientY},
+                    {x: touch.clientX, y: touch.clientY - 40},
+                    {x: touch.clientX, y: touch.clientY + 40},
+                    {x: touch.clientX - 30, y: touch.clientY - 30},
+                    {x: touch.clientX + 30, y: touch.clientY - 30},
+                    {x: touch.clientX - 30, y: touch.clientY + 30},
+                    {x: touch.clientX + 30, y: touch.clientY + 30}
+                ];
+                
+                for (let i = 0; i < checkPoints.length; i++) {
+                    const checkEl = document.elementFromPoint(checkPoints[i].x, checkPoints[i].y);
+                    if (checkEl && checkEl.classList.contains('tile-container')) {
+                        targetEl = checkEl;
+                        break;
+                    }
+                }
+            }
+            
             clone.style.display = 'block';
 
             // Clear drag-over
@@ -219,13 +244,13 @@ const game = {
                 el.classList.remove('drag-over');
             });
 
-            // Add drag-over
-            if (elBelow && elBelow.classList.contains('tile-container')) {
+            // Add drag-over to found container
+            if (targetEl && targetEl.classList.contains('tile-container')) {
                 const belowTile = self.tiles.find(function(t) {
-                    return t.id === elBelow.id;
+                    return t.id === targetEl.id;
                 });
                 if (belowTile && belowTile.id !== tile.id && !belowTile.matched) {
-                    elBelow.classList.add('drag-over');
+                    targetEl.classList.add('drag-over');
                 }
             }
         });
@@ -236,9 +261,32 @@ const game = {
             if (clone) {
                 const touch = e.changedTouches[0];
                 
-                // Find element
+                // Find element with larger detection radius
                 clone.style.display = 'none';
-                const elBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                let elBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+                
+                // Check nearby points if not found
+                if (!elBelow || !elBelow.classList.contains('tile-container')) {
+                    const checkPoints = [
+                        {x: touch.clientX - 40, y: touch.clientY},
+                        {x: touch.clientX + 40, y: touch.clientY},
+                        {x: touch.clientX, y: touch.clientY - 40},
+                        {x: touch.clientX, y: touch.clientY + 40},
+                        {x: touch.clientX - 30, y: touch.clientY - 30},
+                        {x: touch.clientX + 30, y: touch.clientY - 30},
+                        {x: touch.clientX - 30, y: touch.clientY + 30},
+                        {x: touch.clientX + 30, y: touch.clientY + 30}
+                    ];
+                    
+                    for (let i = 0; i < checkPoints.length; i++) {
+                        const checkEl = document.elementFromPoint(checkPoints[i].x, checkPoints[i].y);
+                        if (checkEl && checkEl.classList.contains('tile-container')) {
+                            elBelow = checkEl;
+                            break;
+                        }
+                    }
+                }
+                
                 clone.style.display = 'block';
 
                 // Remove clone
