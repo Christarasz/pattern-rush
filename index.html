@@ -58,15 +58,13 @@
                         <div class="level-name">CUSTOM</div>
                         <div class="custom-controls">
                             <select id="custom-containers" class="custom-select" onchange="game.updateCustomSelection()">
-                                <option value="4">4 containers</option>
-                                <option value="6">6 containers</option>
-                                <option value="8" selected>8 containers</option>
-                                <option value="10">10 containers</option>
-                                <option value="12">12 containers</option>
-                                <option value="14">14 containers</option>
-                                <option value="16">16 containers</option>
-                                <option value="18">18 containers</option>
-                                <option value="20">20 containers</option>
+                                <option value="4">4</option>
+                                <option value="6">6</option>
+                                <option value="8" selected>8</option>
+                                <option value="10">10</option>
+                                <option value="12">12</option>
+                                <option value="14">14</option>
+                                <option value="16">16</option>
                             </select>
                             <select id="custom-time" class="custom-select" onchange="game.updateCustomSelection()">
                                 <option value="30">0:30</option>
@@ -75,15 +73,13 @@
                                 <option value="90">1:30</option>
                                 <option value="120">2:00</option>
                                 <option value="180">3:00</option>
-                                <option value="240">4:00</option>
-                                <option value="300">5:00</option>
                             </select>
                             <button class="custom-select-btn" onclick="game.selectLevel('custom')">SELECT</button>
                         </div>
                     </div>
                 </div>
                 
-                <button class="btn-play btn-primary" id="play-btn" onclick="game.startSelectedGame()" disabled>
+                <button class="btn-medium btn-primary" id="play-btn" onclick="game.startSelectedGame()" disabled>
                     ▶ PLAY
                 </button>
                 

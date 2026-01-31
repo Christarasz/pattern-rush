@@ -206,24 +206,22 @@ body {
 }
 
 .custom-card {
-    grid-column: span 2;
     background: linear-gradient(135deg, #9933FF, #CC66FF);
 }
 
 .custom-controls {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     width: 100%;
-    max-width: 300px;
 }
 
 .custom-select {
     font-family: 'Arial Black', Arial, sans-serif;
-    font-size: 0.9rem;
-    padding: 8px;
+    font-size: 0.75rem;
+    padding: 5px 4px;
     border: 2px solid white;
-    border-radius: 8px;
+    border-radius: 6px;
     background: white;
     color: #663399;
     font-weight: bold;
@@ -232,44 +230,30 @@ body {
 
 .custom-select-btn {
     font-family: 'Arial Black', Arial, sans-serif;
-    font-size: 0.9rem;
-    padding: 10px;
+    font-size: 0.75rem;
+    padding: 6px;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     background: #00FF00;
     color: #663399;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
 }
 
 .custom-select-btn:active {
-    transform: translateY(2px);
+    transform: translateY(1px);
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-}
-
-.btn-play {
-    font-family: 'Arial Black', Arial, sans-serif;
-    font-size: 2rem;
-    font-weight: bold;
-    padding: 20px 50px;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.3);
-    margin-bottom: 20px;
-}
-
-.btn-play:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
 }
 
 .btn-play:not(:disabled):active {
     transform: translateY(4px);
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+#play-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 @media (max-width: 480px) {
@@ -294,9 +278,14 @@ body {
         font-size: 0.75rem;
     }
     
-    .btn-play {
-        font-size: 1.5rem;
-        padding: 15px 40px;
+    .custom-select {
+        font-size: 0.7rem;
+        padding: 4px 3px;
+    }
+    
+    .custom-select-btn {
+        font-size: 0.7rem;
+        padding: 5px;
     }
 }
 
