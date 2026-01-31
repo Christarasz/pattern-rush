@@ -22,27 +22,83 @@ const AudioManager = {
         
         const ctx = this.audioContext;
         
-        // Create a simple upbeat melody
+        // Cheerful melody - more varied and energetic
         const melodyNotes = [
-            // Main theme - happy and energetic
-            {freq: 523.25, time: 0, duration: 0.15},    // C5
-            {freq: 659.25, time: 0.15, duration: 0.15}, // E5
-            {freq: 783.99, time: 0.3, duration: 0.15},  // G5
-            {freq: 1046.5, time: 0.45, duration: 0.3},  // C6
-            {freq: 783.99, time: 0.75, duration: 0.15}, // G5
-            {freq: 1046.5, time: 0.9, duration: 0.3},   // C6
+            // Bar 1 - Upbeat start
+            {freq: 659.25, time: 0, duration: 0.15},    // E5
+            {freq: 659.25, time: 0.2, duration: 0.15},  // E5
+            {freq: 783.99, time: 0.4, duration: 0.15},  // G5
+            {freq: 1046.5, time: 0.6, duration: 0.3},   // C6
             
-            {freq: 587.33, time: 1.2, duration: 0.15},  // D5
-            {freq: 739.99, time: 1.35, duration: 0.15}, // F#5
-            {freq: 880.00, time: 1.5, duration: 0.15},  // A5
-            {freq: 1174.7, time: 1.65, duration: 0.3},  // D6
-            {freq: 880.00, time: 1.95, duration: 0.15}, // A5
-            {freq: 1174.7, time: 2.1, duration: 0.3},   // D6
+            // Bar 2 - Variation
+            {freq: 987.77, time: 1.0, duration: 0.15},  // B5
+            {freq: 880.00, time: 1.2, duration: 0.15},  // A5
+            {freq: 783.99, time: 1.4, duration: 0.15},  // G5
+            {freq: 659.25, time: 1.6, duration: 0.3},   // E5
+            
+            // Bar 3 - Jump up
+            {freq: 783.99, time: 2.0, duration: 0.15},  // G5
+            {freq: 1046.5, time: 2.2, duration: 0.15},  // C6
+            {freq: 1174.7, time: 2.4, duration: 0.15},  // D6
+            {freq: 1318.5, time: 2.6, duration: 0.3},   // E6
+            
+            // Bar 4 - Descending fun
+            {freq: 1174.7, time: 3.0, duration: 0.15},  // D6
+            {freq: 1046.5, time: 3.2, duration: 0.15},  // C6
+            {freq: 987.77, time: 3.4, duration: 0.15},  // B5
+            {freq: 880.00, time: 3.6, duration: 0.3},   // A5
+            
+            // Bar 5 - Happy bounce
+            {freq: 659.25, time: 4.0, duration: 0.1},   // E5
+            {freq: 783.99, time: 4.15, duration: 0.1},  // G5
+            {freq: 659.25, time: 4.3, duration: 0.1},   // E5
+            {freq: 783.99, time: 4.45, duration: 0.1},  // G5
+            {freq: 1046.5, time: 4.6, duration: 0.3},   // C6
+            
+            // Bar 6 - Energetic run
+            {freq: 1174.7, time: 5.0, duration: 0.1},   // D6
+            {freq: 1046.5, time: 5.15, duration: 0.1},  // C6
+            {freq: 987.77, time: 5.3, duration: 0.1},   // B5
+            {freq: 880.00, time: 5.45, duration: 0.1},  // A5
+            {freq: 783.99, time: 5.6, duration: 0.3},   // G5
+            
+            // Bar 7 - Build up
+            {freq: 659.25, time: 6.0, duration: 0.15},  // E5
+            {freq: 739.99, time: 6.2, duration: 0.15},  // F#5
+            {freq: 880.00, time: 6.4, duration: 0.15},  // A5
+            {freq: 1046.5, time: 6.6, duration: 0.3},   // C6
+            
+            // Bar 8 - Finish strong
+            {freq: 1318.5, time: 7.0, duration: 0.2},   // E6
+            {freq: 1174.7, time: 7.25, duration: 0.15}, // D6
+            {freq: 1046.5, time: 7.45, duration: 0.15}, // C6
+            {freq: 783.99, time: 7.65, duration: 0.3},  // G5
+        ];
+        
+        // Bass line for depth
+        const bassNotes = [
+            {freq: 130.81, time: 0, duration: 0.4},     // C3
+            {freq: 146.83, time: 0.5, duration: 0.4},   // D3
+            {freq: 164.81, time: 1.0, duration: 0.4},   // E3
+            {freq: 146.83, time: 1.5, duration: 0.4},   // D3
+            {freq: 130.81, time: 2.0, duration: 0.4},   // C3
+            {freq: 196.00, time: 2.5, duration: 0.4},   // G3
+            {freq: 174.61, time: 3.0, duration: 0.4},   // F3
+            {freq: 164.81, time: 3.5, duration: 0.4},   // E3
+            {freq: 130.81, time: 4.0, duration: 0.4},   // C3
+            {freq: 146.83, time: 4.5, duration: 0.4},   // D3
+            {freq: 164.81, time: 5.0, duration: 0.4},   // E3
+            {freq: 196.00, time: 5.5, duration: 0.4},   // G3
+            {freq: 220.00, time: 6.0, duration: 0.4},   // A3
+            {freq: 196.00, time: 6.5, duration: 0.4},   // G3
+            {freq: 164.81, time: 7.0, duration: 0.4},   // E3
+            {freq: 130.81, time: 7.5, duration: 0.4},   // C3
         ];
         
         const playMelody = () => {
             if (!this.isMusicPlaying) return;
             
+            // Play melody (square wave for classic game sound)
             melodyNotes.forEach(note => {
                 const osc = ctx.createOscillator();
                 const gainNode = ctx.createGain();
@@ -61,8 +117,27 @@ const AudioManager = {
                 osc.stop(ctx.currentTime + note.time + note.duration);
             });
             
-            // Loop the music
-            setTimeout(playMelody, 2400);
+            // Play bass (triangle wave for deeper sound)
+            bassNotes.forEach(note => {
+                const osc = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+                
+                osc.connect(gainNode);
+                gainNode.connect(ctx.destination);
+                
+                osc.type = 'triangle';
+                osc.frequency.value = note.freq;
+                
+                gainNode.gain.setValueAtTime(0, ctx.currentTime + note.time);
+                gainNode.gain.linearRampToValueAtTime(0.06, ctx.currentTime + note.time + 0.01);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + note.time + note.duration);
+                
+                osc.start(ctx.currentTime + note.time);
+                osc.stop(ctx.currentTime + note.time + note.duration);
+            });
+            
+            // Loop the music (8 seconds)
+            setTimeout(playMelody, 8000);
         };
         
         playMelody();

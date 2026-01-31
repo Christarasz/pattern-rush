@@ -128,6 +128,7 @@ const game = {
     // Handle timeout
     handleTimeout: function() {
         this.stopTimer();
+        AudioManager.stopBackgroundMusic();
         AudioManager.playErrorSound();
         utils.showModal('timeout-modal');
     },
@@ -380,6 +381,7 @@ const game = {
     // Handle wrong match
     handleWrongMatch: function(tile1, tile2) {
         this.stopTimer();
+        AudioManager.stopBackgroundMusic();
         AudioManager.playErrorSound();
 
         const el1 = document.getElementById(tile1.id);
